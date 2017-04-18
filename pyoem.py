@@ -20,7 +20,7 @@ CP437_TABLE = (
                 '\u2265\u2264\u2320\u2321\xf7\u2248\xb0\u2219\xb7\u221a\u207f\xb2\u25a0\xa0'
               )
 
-decoding_map = {b:CP437_TABLE[b] for b in range(256)}
+decoding_map = {b:ord(CP437_TABLE[b]) for b in range(256)}
 encoding_map = codecs.make_encoding_map(decoding_map)
 
 class OEM437Codec(codecs.Codec):
@@ -60,8 +60,3 @@ def find_OEM437(encoding):
     return None
 
 codecs.register(find_OEM437)
-
-if __name__ == '__main__':
-    print(encoding_map)
-    print(b'\x1e\x67'.decode('oem437') == '▲g')
-    print('\u25bca'.encode('OEM437') == b'\x1f\x61')
